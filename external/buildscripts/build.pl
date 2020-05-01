@@ -1405,7 +1405,7 @@ if ($build)
 		foreach my $hostPlatform(@hostPlatforms)
 		{
 			print(">>> Making host platform : $hostPlatform\n");
-			system("make", "-j$jobs", "SKIP_AOT=1", "HOST_PLATFORM=$hostPlatform") eq 0 or die ("Failed to make $hostPlatform host platform in mcs\n");
+			system("make", "-j$jobs", "HOST_PLATFORM=$hostPlatform") eq 0 or die ("Failed to make $hostPlatform host platform in mcs\n");
 
 			my $hostPlatformDestDir = "$monoprefix/lib/mono/net_4_x-$hostPlatform";
 			print(">>> Copying $hostPlatform to $hostPlatformDestDir directory\n");

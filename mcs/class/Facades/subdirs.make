@@ -72,6 +72,12 @@ winaot_PARALLEL_SUBDIRS = $(common_SUBDIRS) $(mobile_only_SUBDIRS)
 testing_winaot_interp_SUBDIRS = $(common_DEPS_SUBDIRS) System.Drawing.Common
 testing_winaot_interp_PARALLEL_SUBDIRS = $(common_SUBDIRS) $(mobile_only_SUBDIRS)
 
+unityjit_SUBDIRS = $(common_DEPS_SUBDIRS)
+unityjit_PARALLEL_SUBDIRS = $(common_SUBDIRS) System.Net.Http.Rtc
+
+unityaot_SUBDIRS = $(filter-out System.ServiceModel.Primitives,$(common_DEPS_SUBDIRS)) System.Drawing.Common
+unityaot_PARALLEL_SUBDIRS = $(filter-out System.ServiceModel.Http System.ServiceModel.Security System.ServiceModel.Duplex System.ServiceModel.NetTcp ,$(common_SUBDIRS)) $(mobile_only_SUBDIRS)
+
 orbis_SUBDIRS = $(common_DEPS_SUBDIRS) System.Drawing.Common
 orbis_PARALLEL_SUBDIRS = $(common_SUBDIRS) $(mobile_only_SUBDIRS)
 
