@@ -1407,7 +1407,7 @@ if ($build)
 			print(">>> Making host platform : $hostPlatform\n");
 			system("make", "-j$jobs", "HOST_PLATFORM=$hostPlatform") eq 0 or die ("Failed to make $hostPlatform host platform in mcs\n");
 
-			my $hostPlatformDestDir = "$monoprefix/lib/mono/net_4_x-$hostPlatform";
+			my $hostPlatformDestDir = "$monoprefix/lib/mono/unityjit-$hostPlatform";
 			print(">>> Copying $hostPlatform to $hostPlatformDestDir directory\n");
 
 			print(">>> Cleaning $hostPlatformDestDir\n");
@@ -1416,12 +1416,17 @@ if ($build)
 			system("mkdir -p $hostPlatformDestDir") eq 0 or die("failed to make directory $hostPlatformDestDir\n");
 			system("mkdir -p $hostPlatformDestDir/Facades") eq 0 or die("failed to make directory $hostPlatformDestDir/Facades\n");
 
-			system("cp $monoroot/mcs/class/lib/net_4_x-$hostPlatform/*.dll $hostPlatformDestDir") eq 0 or die("Failed copying dlls from $monoroot/mcs/class/lib/net_4_x-$hostPlatform to $hostPlatformDestDir\n");
-			system("cp $monoroot/mcs/class/lib/net_4_x-$hostPlatform/Facades/*.dll $hostPlatformDestDir/Facades") eq 0 or die("Failed copying dlls from $monoroot/mcs/class/lib/net_4_x-$hostPlatform/Facades to $hostPlatformDestDir/Facades\n");
+			system("cp $monoroot/mcs/class/lib/unityjit-$hostPlatform/*.dll $hostPlatformDestDir") eq 0 or die("Failed copying dlls from $monoroot/mcs/class/lib/unityjit-$hostPlatform to $hostPlatformDestDir\n");
+			system("cp $monoroot/mcs/class/lib/unityjit-$hostPlatform/Facades/*.dll $hostPlatformDestDir/Facades") eq 0 or die("Failed copying dlls from $monoroot/mcs/class/lib/unityjit-$hostPlatform/Facades to $hostPlatformDestDir/Facades\n");
 		}
 
-			system("cp -R $monoprefix/lib/mono/4.5 $monoprefix/lib/mono/unityjit") eq 0 or die("Failed copying unityjit\n");
-			system("cp -R $monoprefix/lib/mono/4.5 $monoprefix/lib/mono/unityaot") eq 0 or die("Failed copying unityaot\n");
+		print(">>> Cleaning $monoprefix/lib/mono/unityaot\n");
+		system("rm -rf $monoprefix/lib/mono/unityaot");
+		system("mkdir -p $monoprefix/lib/mono/unityaot") eq 0 or die("Failed to make directory $monoprefix/lib/mono/unityaot\n");
+		system("mkdir -p $monoprefix/lib/mono/unityaot/Facades") eq 0 or die("Failed to make directory $monoprefix/lib/mono/unityaot/Facades\n");
+
+		system("cp $monoroot/mcs/class/lib/unityaot/*.dll $monoprefix/lib/mono/unityaot") eq 0 or die("Failed copying unityaot\n");
+		system("cp $monoroot/mcs/class/lib/unityaot/Facades/*.dll $monoprefix/lib/mono/unityaot") eq 0 or die("Failed copying unityaot Facades");
 
 		chdir("$monoroot");
 
