@@ -1430,12 +1430,12 @@ if ($build)
 
 		chdir("$monoroot");
 
-		my $stubResult = system("perl", "$buildscriptsdir/stub_classlibs.pl");
+		# my $stubResult = system("perl", "$buildscriptsdir/stub_classlibs.pl");
 
-		if ($stubResult ne 0)
-		{
-			die("Failed to run the profile stubber\n");
-		}
+		# if ($stubResult ne 0)
+		# {
+		# 	die("Failed to run the profile stubber\n");
+		# }
 	}
 }
 else
