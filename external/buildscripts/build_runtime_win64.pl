@@ -52,6 +52,8 @@ sub CompileVCProj
 			$devenv = $devenvoption;
 		}
 	}
+
+	print "Found devenv at $devenv\n";
 	
 	my $buildcmd = $incremental ? "/build" : "/rebuild";
 	

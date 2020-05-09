@@ -1,0 +1,22 @@
+[extensions]
+largefiles =
+eol =
+purge =
+
+[diff]
+git = True
+
+[tortoisehg]
+graphopt = True
+
+[format]
+aggressivemergedeltas = yes
+
+[experimental]
+maxdeltachainspan = 500MB
+
+[auth]
+ono.schemes = https
+ono.prefix = ono.unity3d.com
+ono.username = $ONO_USER
+ono.password = $ONO_KEY

@@ -8,7 +8,7 @@ function compile_vcproj ()
 	proj=$1; shift
 	opt=$@
 
-	devenv=`echo "$VS100COMNTOOLS/../IDE/devenv.com" | sed 's.\\\\./.g'`
+	devenv=`echo "C:/Program Files (x86)/Microsoft Visual Studio 10.0/Common7/Tools/../IDE/devenv.com" | sed 's.\\\\./.g'`
 	devenv=`cygpath "$devenv"`
 
 	if [[ ! -e $devenv ]] ; then echo "Can't find VS 10.0 install (through VS100COMNTOOLS)"; exit 1; fi 

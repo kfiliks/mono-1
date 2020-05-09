@@ -319,8 +319,7 @@ sub UnityBooc
 
 sub BuildUnityScriptForUnity
 {
-	# TeamCity is handling this
-	if (!$ENV{UNITY_THISISABUILDMACHINE}) {
+	if ($ENV{YAMATO_PROJECT_ID}) {
 		GitClone("git://github.com/Unity-Technologies/boo.git", $booCheckout);
 	}
 	UnityXBuild("$booCheckout/src/booc/booc.csproj");
@@ -335,7 +334,7 @@ sub BuildUnityScriptForUnity
 	UnityXBuild("$booCheckout/src/Boo.Lang/Boo.Lang.csproj", "Micro-Release");
 	cp("$booCheckout/src/Boo.Lang/bin/Micro-Release/Boo.Lang.dll $monodistroLibMono/micro/");
 	
-	if (!$ENV{UNITY_THISISABUILDMACHINE}) {
+	if ($ENV{YAMATO_PROJECT_ID}) {
 		GitClone("git://github.com/Unity-Technologies/unityscript.git", $usCheckout);
 	}
 	
@@ -399,7 +398,7 @@ sub BuildCecilForUnity
 	if ($useCecilLight) {
 		
 		$cecilCheckout = "$root/../../cecil/build";
-		if (!$ENV{UNITY_THISISABUILDMACHINE}) {
+		if ($ENV{YAMATO_PROJECT_ID}) {
 			GitClone("http://github.com/Unity-Technologies/cecil", $cecilCheckout, $dependencyBranchToUse);
 		}
 		

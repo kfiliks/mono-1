@@ -1,0 +1,23 @@
+name: Build iPhone Runtime
+
+agent:
+  type: Unity::VM::osx
+  image: buildfarm/mac:latest
+  flavor: m1.mac
+  config:
+    env_vars:
+      - UNITY_THISISABUILDMACHINE=1
+
+commands:
+  - |
+    cd ../..
+    hg clone https://$ONO_USER:$ONO_KEY@ono.unity3d.com/unity-extra/mono-build-deps/ mono-build-deps/build/
+    cd mono-build-deps/build
+    hg pull -u https://$ONO_USER:$ONO_KEY@ono.unity3d.com/unity-extra/mono-build-deps -r default
+    hg up -C default
+  - .yamato/scripts/build_iphone_runtime.sh
+
+artifacts: 
+  iphoneruntime:
+    paths:
+      - incomingbuilds/iphoneruntime/**

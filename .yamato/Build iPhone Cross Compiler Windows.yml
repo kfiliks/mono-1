@@ -1,0 +1,23 @@
+name: Build iPhone Cross Compiler Windows
+
+agent:
+  type: Unity::VM
+  image: core-kaunas/win10-vs2010:latest
+  flavor: b1.xlarge
+
+commands:
+  - |
+    cd .yamato/config/cygwin
+    dir
+    setup-x86_64.exe --no-shortcuts --root C:/Cygwin64 --packages gcc-core,gcc-g++,make,cmake,gdb,binutils --quiet-mode --upgrade-also --site http://mirrors.163.com/cygwin/
+  - choco.exe install dos2unix
+  - git submodule update --init --recursive
+  - |
+    cd ..
+    C:/Cygwin64/bin/find.exe . -type f -name *.sh -exec dos2unix {} ;
+  - .yamato/scripts/build_iphone_crosscompiler_win.bat
+
+artifacts: 
+  iphonexcompiler:
+    paths:
+      - incomingbuilds\iphonexcompiler\**

@@ -65,8 +65,7 @@ sub UnityBooc
 
 sub BuildUnityScriptForUnity
 {	
-	# Build system is handling this
-	if (!$ENV{UNITY_THISISABUILDMACHINE}) {
+	if ($ENV{YAMATO_PROJECT_ID}) {
 		GitClone("git://github.com/Unity-Technologies/boo.git", $booCheckout);
 	}
 
@@ -75,7 +74,7 @@ sub BuildUnityScriptForUnity
 	Build("$booCheckout/src/booc/Booc.csproj", undef, "/property:TargetFrameworkVersion=4.0 /property:DefineConstants=\"" . $commonDefines . "\" /property:OutputPath=$output/wp8");
 	Build("$booCheckout/src/booc/Booc.csproj", undef, "/property:TargetFrameworkVersion=4.0 /property:DefineConstants=\"" . $commonDefines . ",NO_SYSTEM_REFLECTION_EMIT\" /property:OutputPath=$output/wsa");
 	
-	if (!$ENV{UNITY_THISISABUILDMACHINE}) {
+	if ($ENV{YAMATO_PROJECT_ID}) {
 		GitClone("git://github.com/Unity-Technologies/unityscript.git", $usCheckout);
 	}
 	

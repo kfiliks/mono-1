@@ -1,0 +1,29 @@
+name: Build Classlibs OSX
+
+agent:
+  type: Unity::VM::osx
+  image: buildfarm/mac:latest
+  flavor: m1.mac
+  config:
+    env_vars:
+      - UNITY_THISISABUILDMACHINE=1
+
+commands:
+  - |
+    pwd
+    cd ../..
+    pwd
+    mkdir -p mono-build-deps/build
+    hg clone https://$ONO_USER:$ONO_KEY@ono.unity3d.com/unity-extra/mono-build-deps/ mono-build-deps/build/
+    cd mono-build-deps/build
+    pwd
+    ls -al
+    hg pull -u https://$ONO_USER:$ONO_KEY@ono.unity3d.com/unity-extra/mono-build-deps -r default
+    hg up -C default
+  - pwd
+  - .yamato/scripts/build_osx_classlibs.sh
+
+artifacts: 
+  classlibs:
+    paths:
+      - incomingbuilds/classlibs/**

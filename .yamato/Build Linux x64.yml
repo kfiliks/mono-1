@@ -1,0 +1,26 @@
+name: Build Linux x64
+
+agent:
+  type: Unity::VM
+  image: platform-foundation/linux-bokken:latest
+  flavor: b1.large
+
+commands:
+  - sudo apt-get install -y mercurial
+  - cp .yamato/config/hgrc ~/hgrc
+  - cat ~/hgrc
+  - sudo rm -rf /etc/mercurial/hgrc.d/hgext.rc
+  - sudo cp .yamato/config/hgext.rc /etc/mercurial/hgrc.d/hgext.rc
+  - cat /etc/mercurial/hgrc.d/hgext.rc
+  - |
+    cd ../..
+    hg clone https://$ONO_USER:$ONO_KEY@ono.unity3d.com/unity-extra/mono-build-deps/ mono-build-deps/build/
+    cd mono-build-deps/build
+    hg pull -u https://$ONO_USER:$ONO_KEY@ono.unity3d.com/unity-extra/mono-build-deps -r default
+    hg up -C default
+  - .yamato/scripts/build_linux_x64.sh
+
+artifacts: 
+  linux64:
+    paths:
+      - incomingbuilds/linux64/**

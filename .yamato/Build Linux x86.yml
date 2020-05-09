@@ -1,0 +1,25 @@
+name: Build Linux x86
+
+agent:
+  type: Unity::VM
+  image: platform-foundation/linux-bokken:latest
+  flavor: b1.large
+
+commands:
+  - sudo apt-get install -y mercurial
+  - cp .yamato/config/mercurial.ini ~/mercurial.ini
+  - cp .yamato/config/hgrc ~/hgrc
+  - cat ~/hgrc
+  - /etc/mercurial/hgrc.d/hgext.rc
+  - |
+    cd ../..
+    hg clone https://$ONO_USER:$ONO_KEY@ono.unity3d.com/unity-extra/mono-build-deps/ mono-build-deps/build/
+    cd mono-build-deps/build
+    hg pull -u https://$ONO_USER:$ONO_KEY@ono.unity3d.com/unity-extra/mono-build-deps -r default
+    hg up -C default
+  - .yamato/scripts/build_linux_x86.sh
+
+artifacts: 
+  linux32:
+    paths:
+      - incomingbuilds/linux32/**
