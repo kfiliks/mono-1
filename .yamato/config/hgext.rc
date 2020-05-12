@@ -16,7 +16,5 @@ aggressivemergedeltas = yes
 maxdeltachainspan = 500MB
 
 [auth]
-ono.schemes = https
-ono.prefix = ono.unity3d.com
 ono.username = $ONO_USER
 ono.password = $ONO_KEY

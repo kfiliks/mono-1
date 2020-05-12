@@ -14,7 +14,7 @@ commands:
   - cat /etc/mercurial/hgrc.d/hgext.rc
   - |
     cd ../..
-    hg clone https://$ONO_USER:$ONO_KEY@ono.unity3d.com/unity-extra/mono-build-deps/ mono-build-deps/build/
+    hg clone --uncompressed http://ono.unity3d.com/unity-extra/mono-build-deps/ mono-build-deps/build/
     cd mono-build-deps/build
     hg pull -u https://$ONO_USER:$ONO_KEY@ono.unity3d.com/unity-extra/mono-build-deps -r default
     hg up -C default
